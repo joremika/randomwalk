@@ -10,7 +10,151 @@ const stepsValue = document.getElementById('steps-value');
 const limitCheckbox = document.getElementById('limit-50');
 const resultsContainer = document.getElementById('results-container');
 
-// Initialize
+const translations = {
+    en: {
+        settings: "⚙️ Settings",
+        startingFunds: "💰 Starting Funds",
+        startingFundsHint: "The amount of money you have pre-bet.",
+        betAmount: "🎯 Bet amount",
+        betAmountHint: "Amount bet each step. Stays the same for all steps.",
+        winProbability: "🎲 Win Probability (%)",
+        steps: "📊 Number of Steps",
+        limitCheckbox: "🔒 Limit win probability to 50% max",
+        limitHint: "Uncheck to allow up to 99% (house always loses)",
+        simulations: "🔄 Simultaneous Simulations",
+        simulationsHint: "Number of parallel random walks",
+        startBtn: "🎮 Start Random Walk Simulation",
+        resetBtn: "🔄 Reset All",
+        results: "📈 Results",
+        placeholder1: "Configure settings and click 'Start' to run simulation",
+        placeholder2: "Results will appear here with detailed statistics and graph",
+        // Results texts
+        initialBank: "Initial Bank",
+        betSize: "Bet Size",
+        winProb: "Win Probability",
+        simulationsCount: "Simulations",
+        bankruptcyRate: "Bankruptcy Rate",
+        avgProfit: "Average Profit",
+        individualSims: "Individual Simulations:",
+        simResults: "Simulation Results",
+        primarySim: "Primary Simulation",
+        finalBankroll: "Final Bankroll",
+        stepsTaken: "Steps Taken",
+        maximumBankroll: "Maximum Bankroll",
+        minimumBankroll: "Minimum Bankroll",
+        profitLoss: "Profit/Loss",
+        status: "Status",
+        bankrupt: "🚨 BANKRUPT",
+        stillInGame: "🏦 STILL IN GAME",
+        profit: "✅ PROFIT",
+        loss: "⚠️ LOSS",
+        runningSim: "Running simulation..."
+    },
+    ru: {
+        settings: "⚙️ Настройки",
+        startingFunds: "💰 Начальные средства",
+        startingFundsHint: "Сумма денег до ставок, вначале игры.",
+        betAmount: "🎯 Сумма ставки",
+        betAmountHint: "Сумма за одну ставку. Не меняется на протяжении всей прогулки.",
+        winProbability: "🎲 Шанс выигрыша (%)",
+        steps: "📊 Кол-во шагов",
+        limitCheckbox: "🔒 Ограничить шанс своей победы до 50% максимум.",
+        limitHint: "Убрав галочку, вы получите возможность повысить шанс выигрыша до 99%. (казино всегда будет проигрывать)",
+        simulations: "🔄 Одновременные симуляции",
+        simulationsHint: "Кол-во параллельных симуляций",
+        startBtn: "🎮 Начать случайную прогулку",
+        resetBtn: "🔄 Сбросить все настройки",
+        results: "📈 Результаты",
+        placeholder1: "Подберите нужные вам настройки и нажмите 'Начать случайную прогулку' чтоб запустить симуляцию.",
+        placeholder2: "Результаты симуляции (или симуляций) появятся в этом окне.",
+        // Results texts
+        initialBank: "Начальный банк",
+        betSize: "Размер ставки",
+        winProb: "Шанс выигрыша",
+        simulationsCount: "Симуляций",
+        bankruptcyRate: "Процент банкротств",
+        avgProfit: "Средняя прибыль",
+        individualSims: "Отдельные симуляции:",
+        simResults: "Результаты симуляции",
+        primarySim: "Основная симуляция",
+        finalBankroll: "Финальный баланс",
+        stepsTaken: "Сделано шагов",
+        maximumBankroll: "Максимальный баланс",
+        minimumBankroll: "Минимальный баланс",
+        profitLoss: "Прибыль/Убыток",
+        status: "Статус",
+        bankrupt: "🚨 БАНКРОТ",
+        stillInGame: "🏦 ВСЁ ЕЩЁ В ИГРЕ",
+        profit: "✅ ПРИБЫЛЬ",
+        loss: "⚠️ УБЫТОК",
+        runningSim: "Запускаем симуляцию..."
+    }
+};
+
+
+let currentLang = 'en';
+
+function setLanguage(lang) {
+    currentLang = lang;
+    const t = translations[lang];
+    
+    // Update UI texts - ТЕПЕРЬ С ID!
+    document.querySelector('.settings-panel h2').textContent = t.settings;
+    
+    // Labels
+    document.querySelector('label[for="initial-bank"]').textContent = t.startingFunds;
+    document.querySelector('label[for="bet-size"]').textContent = t.betAmount;
+    document.querySelector('label[for="win-probability"]').textContent = t.winProbability;
+    document.querySelector('label[for="steps"]').textContent = t.steps;
+    document.querySelector('label[for="simulations"]').textContent = t.simulations;
+    
+    // Hints по ID
+    document.getElementById('initial-bank-hint').textContent = t.startingFundsHint;
+    document.getElementById('bet-size-hint').textContent = t.betAmountHint;
+    document.getElementById('limit-hint').textContent = t.limitHint;
+    document.getElementById('simulations-hint').textContent = t.simulationsHint;
+    
+    // Checkbox label
+    document.getElementById('limit-label').textContent = t.limitCheckbox;
+    
+    // Buttons
+    document.getElementById('start-btn').textContent = t.startBtn;
+    document.getElementById('reset-btn').textContent = t.resetBtn;
+    
+    // Results panel
+    document.querySelector('.results-panel h2').textContent = t.results;
+    document.getElementById('placeholder-text-1').textContent = t.placeholder1;
+    document.getElementById('placeholder-text-2').textContent = t.placeholder2;
+    
+    // Update active button
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    document.querySelector(`.lang-btn[onclick="setLanguage('${lang}')"]`).classList.add('active');
+    
+    // Save preference
+    localStorage.setItem('casino-sim-lang', lang);
+    
+    // Update page title
+    document.title = lang === 'ru' ? 'Симулятор случайных прогулок в стиле казино' : 'Random Walk Casino Simulator';
+}
+
+function loadLanguagePreference() {
+    const savedLang = localStorage.getItem('casino-sim-lang');
+    const browserLang = navigator.language.startsWith('ru') ? 'ru' : 'en';
+    const lang = savedLang || browserLang;
+    
+    setLanguage(lang);
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    // ... существующий код инициализации ...
+    
+    // Initialize language
+    loadLanguagePreference();
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     // Sync inputs with sliders
     winProbSlider.addEventListener('input', updateWinProbability);
@@ -103,7 +247,8 @@ function runSimulation() {
     }
     
     // Clear previous results
-    resultsContainer.innerHTML = '<div class="simulating">Running simulation...</div>';
+    const t = translations[currentLang];
+    resultsContainer.innerHTML = `<div class="simulating">${t.runningSim}</div>`;
     
     // Run simulation(s) after a small delay to show loading state
     setTimeout(() => {
@@ -156,38 +301,35 @@ function displayResults(allResults, initialBank, betSize, winProbability, maxSte
     // Clear container
     resultsContainer.innerHTML = '';
     
-    // Overall stats
+    const t = translations[currentLang];
     const bankruptCount = allResults.filter(r => r.bankrupt).length;
     const avgProfit = allResults.reduce((sum, r) => sum + r.profit, 0) / allResults.length;
-    const avgSteps = allResults.reduce((sum, r) => sum + r.stepsTaken, 0) / allResults.length;
-    
-    // Create stats grid
     const statsHTML = `
         <div class="stats-grid">
             <div class="stat-card">
-                <h4>Initial Bank</h4>
+                <h4>${t.initialBank}</h4>
                 <p>$${initialBank}</p>
             </div>
             <div class="stat-card">
-                <h4>Bet Size</h4>
+                <h4>${t.betSize}</h4>
                 <p>$${betSize}</p>
             </div>
             <div class="stat-card">
-                <h4>Win Probability</h4>
+                <h4>${t.winProb}</h4>
                 <p>${(winProbability * 100).toFixed(1)}%</p>
             </div>
             <div class="stat-card">
-                <h4>Simulations</h4>
+                <h4>${t.simulationsCount}</h4>
                 <p>${allResults.length}</p>
             </div>
             <div class="stat-card">
-                <h4>Bankruptcy Rate</h4>
+                <h4>${t.bankruptcyRate}</h4>
                 <p class="${bankruptCount > 0 ? 'bankrupt' : 'profit'}">
                     ${((bankruptCount / allResults.length) * 100).toFixed(1)}%
                 </p>
             </div>
             <div class="stat-card">
-                <h4>Average Profit</h4>
+                <h4>${t.avgProfit}</h4>
                 <p class="${avgProfit >= 0 ? 'profit' : 'bankrupt'}">
                     $${avgProfit.toFixed(2)}
                 </p>
@@ -195,19 +337,18 @@ function displayResults(allResults, initialBank, betSize, winProbability, maxSte
         </div>
     `;
     
-    // Individual results for each simulation
+    // Individual results
     let individualHTML = '';
-    
     if (allResults.length > 1) {
-        individualHTML += '<h3>Individual Simulations:</h3>';
+        individualHTML += `<h3>${t.individualSims}</h3>`;
         allResults.forEach((result, index) => {
             individualHTML += `
                 <div class="simulation-result">
-                    <strong>Simulation ${index + 1}:</strong> 
-                    Final: $${result.finalBankroll} | 
-                    Steps: ${result.stepsTaken} | 
-                    Max: $${result.maxBankroll} |
-                    ${result.bankrupt ? '🚨 BANKRUPT' : (result.profit > 0 ? '✅ PROFIT' : '⚠️ LOSS')}
+                    <strong>${t.simulationsCount} ${index + 1}:</strong> 
+                    ${t.finalBankroll}: $${result.finalBankroll} | 
+                    ${t.stepsTaken}: ${result.stepsTaken} | 
+                    ${t.maximumBankroll}: $${result.maxBankroll} |
+                    ${result.bankrupt ? t.bankrupt : (result.profit > 0 ? t.profit : t.loss)}
                 </div>
             `;
         });
@@ -216,18 +357,17 @@ function displayResults(allResults, initialBank, betSize, winProbability, maxSte
     // Main results
     const mainResult = allResults[0];
     const mainStats = `
-        <h3>${allResults.length === 1 ? 'Simulation Results' : 'Primary Simulation'}</h3>
+        <h3>${allResults.length === 1 ? t.simResults : t.primarySim}</h3>
         <div class="detailed-stats">
-            <p><strong>Final Bankroll:</strong> <span class="${mainResult.profit >= 0 ? 'profit' : 'bankrupt'}">$${mainResult.finalBankroll}</span></p>
-            <p><strong>Steps Taken:</strong> ${mainResult.stepsTaken} of ${maxSteps}</p>
-            <p><strong>Maximum Bankroll:</strong> $${mainResult.maxBankroll}</p>
-            <p><strong>Minimum Bankroll:</strong> $${mainResult.minBankroll}</p>
-            <p><strong>Profit/Loss:</strong> <span class="${mainResult.profit >= 0 ? 'profit' : 'bankrupt'}">$${mainResult.profit.toFixed(2)}</span></p>
-            <p><strong>Status:</strong> ${mainResult.bankrupt ? '🚨 BANKRUPT' : '🏦 STILL IN GAME'}</p>
+            <p><strong>${t.finalBankroll}:</strong> <span class="${mainResult.profit >= 0 ? 'profit' : 'bankrupt'}">$${mainResult.finalBankroll}</span></p>
+            <p><strong>${t.stepsTaken}:</strong> ${mainResult.stepsTaken} of ${maxSteps}</p>
+            <p><strong>${t.maximumBankroll}:</strong> $${mainResult.maxBankroll}</p>
+            <p><strong>${t.minimumBankroll}:</strong> $${mainResult.minBankroll}</p>
+            <p><strong>${t.profitLoss}:</strong> <span class="${mainResult.profit >= 0 ? 'profit' : 'bankrupt'}">$${mainResult.profit.toFixed(2)}</span></p>
+            <p><strong>${t.status}:</strong> ${mainResult.bankrupt ? t.bankrupt : t.stillInGame}</p>
         </div>
     `;
     
-    // Combine everything
     resultsContainer.innerHTML = statsHTML + mainStats + individualHTML;
     
     // Create canvas for graph
@@ -365,10 +505,13 @@ function resetSimulation() {
     updateProbabilityLimit();
     
     // Clear results
+const t = translations[currentLang];
     resultsContainer.innerHTML = `
         <div class="placeholder">
-            <p>Configure settings and click "Start" to run simulation</p>
-            <p>Results will appear here with detailed statistics and graph</p>
+            <p>${t.placeholder1}</p>
+            <p>${t.placeholder2}</p>
         </div>
     `;
 }
+
+

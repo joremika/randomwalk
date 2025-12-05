@@ -242,3 +242,29 @@ canvas {
 .profit {
     color: #2ecc71 !important;
 }
+
+.language-switcher {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    justify-content: center;
+}
+
+.lang-btn {
+    padding: 8px 16px;
+    background: #34495e;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    color: #ecf0f1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+    background: #3d566e;
+}
+
+.lang-btn.active {
+    background: #3498db;
+    border-color: #2980b9;
+}
