@@ -4,7 +4,7 @@
 ## Installation - Установка
 No installation required - Установка не требуется<br>
 To run the simulator, you will need to download the files and open the **`main.html`** file in your browser.
-To download files, please follow [this wonderful link] (https://github.com/joremika/randomwalk/archive/refs/heads/main.zip)
+To download files, please follow [this wonderful link](https://github.com/joremika/randomwalk/archive/refs/heads/main.zip)
 
 ## Tools - Доступный инструментарий
 - Bet size / Размер ставки
