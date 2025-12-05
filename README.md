@@ -1,4 +1,5 @@
 # 🎰 Random Walk Simulator - Симулятор "случайной прогулки" 🎰
+A web-based application that conceptualizes and visualizes risk, probability, and shows why the casino always wins in the long-run.<br>
 Веб-приложение, которое наглядно и доступно демонстрирует, что такое вероятность, риск и почему казино всегда выигрывает. 
 
 ## Installation - Установка
