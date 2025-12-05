@@ -2,7 +2,7 @@
 Веб-приложение, которое наглядно и доступно демонстрирует, что такое вероятность, риск и почему казино всегда выигрывает. 
 
 ## Installation - Установка
-- No installation required - Установка не требуется
+- No installation required - Установка не требуется<br>
 To run the simulator, you will need to download the files and open the **.html** file in your browser.
 
 ## Tools - Доступный инструментарий
