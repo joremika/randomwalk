@@ -3,8 +3,10 @@
 
 ## Installation - Установка
 No installation required - Установка не требуется<br>
-To run the simulator, you will need to download the files and open the **`main.html`** file in your browser.
-To download files, please follow [this wonderful link](https://github.com/joremika/randomwalk/archive/refs/heads/main.zip)
+To run the simulator, you will need to download the files and open the **`main.html`** file in your browser.<br>
+To download project files, please click the following link: [download project files](https://github.com/joremika/randomwalk/archive/refs/heads/main.zip)
+Для запуска симулятора потребуется скачать файлы проекта и запустить файл **`main.html`** в удобном для вас браузере. <br>
+Скачать файлы проекта вы сможете по следующей ссылке: [скачать файлы проекта](https://github.com/joremika/randomwalk/archive/refs/heads/main.zip)
 
 ## Tools - Доступный инструментарий
 - Bet size / Размер ставки
