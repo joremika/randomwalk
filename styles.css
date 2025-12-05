@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #333;
+}
+
+.container {
+    display: flex;
+    width: 60vw; /* 60% ширины viewport */
+    height: 70vh; /* 70% высоты viewport */
+    min-width: 800px;
+    min-height: 500px;
+    max-width: 1200px;
+    max-height: 800px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 1200px) {
+    .container {
+        width: 80vw;
+        height: 80vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 95vw;
+        height: auto;
+        min-height: 90vh;
+    }
+}
+
+.settings-panel {
+    width: 35%;
+    padding: 30px;
+    background: linear-gradient(to bottom, #2c3e50, #34495e);
+    color: #ecf0f1;
+    overflow-y: auto;
+    border-right: 2px solid #1a252f;
+}
+
+.results-panel {
+    flex: 1;
+    padding: 30px;
+    background: #f8f9fa;
+    overflow-y: auto;
+    position: relative;
+}
+
+h2 {
+    margin-bottom: 25px;
+    font-size: 24px;
+    color: #3498db;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+.settings-panel h2 {
+    color: #ecf0f1;
+    border-color: #3498db;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #bdc3c7;
+    font-size: 14px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #34495e;
+    border-radius: 8px;
+    background: #1a252f;
+    color: #ecf0f1;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+input[type="number"]:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+input[type="range"] {
+    width: 80%;
+    height: 6px;
+    background: #34495e;
+    border-radius: 3px;
+    outline: none;
+    margin-right: 10px;
+}
+
+.range-container {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.range-container span {
+    min-width: 40px;
+    text-align: center;
+    font-weight: bold;
+    color: #3498db;
+}
+
+.checkbox-group {
+    margin: 25px 0;
+    padding: 15px;
+    background: rgba(26, 37, 47, 0.5);
+    border-radius: 8px;
+    border: 1px solid #34495e;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.checkbox-group label {
+    display: inline;
+    cursor: pointer;
+}
+
+.hint {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+.start-button, .reset-button {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.start-button {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    margin-top: 20px;
+}
+
+.start-button:hover {
+    background: linear-gradient(135deg, #27ae60, #219653);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+}
+
+.reset-button {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+}
+
+.reset-button:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+#results-container {
+    margin-top: 20px;
+}
+
+.placeholder {
+    text-align: center;
+    color: #7f8c8d;
+    padding: 40px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+canvas {
+    max-width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 20px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.stat-card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #3498db;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.stat-card h4 {
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.stat-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.bankrupt {
+    color: #e74c3c !important;
+}
+
+.profit {
+    color: #2ecc71 !important;
+}

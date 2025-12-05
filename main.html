@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Walk Casino Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="settings-panel">
+            <h2>⚙️ Settings</h2>
+            
+            <div class="input-group">
+                <label for="initial-bank">💰 Initial Bank</label>
+                <input type="number" id="initial-bank" min="1" value="1000" step="10">
+                <div class="hint">Starting amount in</div>
+            </div>
+            
+            <div class="input-group">
+                <label for="bet-size">🎯 Bet Size per Step</label>
+                <input type="number" id="bet-size" min="1" value="100" step="10">
+                <div class="hint">Amount bet each round</div>
+            </div>
+            
+            <div class="input-group">
+                <label for="win-probability">🎲 Win Probability (%)</label>
+                <input type="number" id="win-probability" min="1" max="99" value="45">
+                <div class="range-container">
+                    <input type="range" id="win-prob-slider" min="1" max="99" value="45">
+                    <span id="prob-value">45%</span>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="steps">📊 Number of Steps</label>
+                <input type="number" id="steps" min="10" max="10000" value="100">
+                <div class="range-container">
+                    <input type="range" id="steps-slider" min="10" max="1000" value="100">
+                    <span id="steps-value">100</span>
+                </div>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="limit-50" checked>
+                <label for="limit-50">🔒 Limit win probability to 50% max</label>
+                <div class="hint">Uncheck to allow up to 99% (house always loses)</div>
+            </div>
+            
+            <div class="input-group">
+                <label for="simulations">🔄 Simultaneous Simulations</label>
+                <input type="number" id="simulations" min="1" max="20" value="1">
+                <div class="hint">Number of parallel random walks</div>
+            </div>
+            
+            <button id="start-btn" class="start-button">
+                🎮 Start Random Walk Simulation
+            </button>
+            
+            <button id="reset-btn" class="reset-button">
+                🔄 Reset All
+            </button>
+        </div>
+        
+        <div class="results-panel">
+            <h2>📈 Results</h2>
+            <div id="results-container">
+                <div class="placeholder">
+                    <p>Configure settings and click "Start" to run simulation</p>
+                    <p>Results will appear here with detailed statistics and graph</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="logic.js"></script>
+</body>
+</html>
