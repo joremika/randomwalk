@@ -3,7 +3,7 @@
 
 ## Installation - Установка
 - No installation required - Установка не требуется<br>
-To run the simulator, you will need to download the files and open the **.html** file in your browser.
+To run the simulator, you will need to download the files and open the **`main.html`** file in your browser.
 
 ## Tools - Доступный инструментарий
 - Bet size / Размер ставки
