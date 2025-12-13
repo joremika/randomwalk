@@ -6,7 +6,7 @@ A web-based application that conceptualizes and visualizes risk, probability, an
 - [Installation/Установка](#installation)
 - [Tools/Инструментарий](#tools)
 
-## Installation - Установка
+## <a name="installation"> Installation <a> - Установка
 No installation required - Установка не требуется<br>
 
 To run the simulator, you will need to download the files and open the **`main.html`** file in your browser.<br>
@@ -15,7 +15,7 @@ To download project files, please click the following link: [download project fi
 Для запуска симулятора потребуется скачать файлы проекта и запустить файл **`main.html`** в удобном для вас браузере. <br>
 Скачать файлы проекта вы сможете по следующей ссылке: [скачать файлы проекта](https://github.com/joremika/randomwalk/archive/refs/heads/main.zip)
 
-## 🛠 Tools - Доступный инструментарий 🛠
+## 🛠 <a name="tools"> Tools </a>- Доступный инструментарий 🛠
 - Initial bankroll / Стартовый капитал
 - Bet size / Размер ставки
 - Win probability / Шанс на выигрыш
